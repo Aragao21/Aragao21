@@ -15,7 +15,7 @@
 
 ---
 
-Sou Técnica de Informática para Internet, atuo na área desde 2021 (e desde 2017 estudando informática :scream:) e estou no segundo semestre da graduação em Engenharia da Computação. .  
+Sou Técnica de Informática para Internet, atuo na área desde 2021 (e desde 2017 estudando informática :scream:) e estou no terceiro semestre da graduação em Engenharia da Computação.  
 
 Amo dançar :dancer:, cantar 🎵, ler :books: e jogar basquete 🏀 
 Sou mãe de um doguinho chamado Billy 🐶
