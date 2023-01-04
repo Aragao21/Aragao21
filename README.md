@@ -1,4 +1,4 @@
-![capa github](https://github.com/Aragao21/Aragao21/blob/main/images/Capa_github.png)  
+![capa github](https://github.com/Aragao21/Aragao21/blob/main/images/Capa%20-%20GitHub.png)  
 
 
 <center>
