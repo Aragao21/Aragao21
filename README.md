@@ -28,13 +28,11 @@ Sempre tive paixão pela área de tecnologia e permaneci desde 2017 me aprimoran
 
 ---
 
-Onde me encontrar? :mag:  
-
-<a href="https://twitter.com/Aragon_0721"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/twitter.png" width="16"></img></a> [Twitter](https://twitter.com/Aragon_0721)   
+Onde me encontrar? :mag:   
 
 <a href="https://www.instagram.com/hey_aragon/"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/instagram.png" width="16"></img></a> [Instagram](https://www.instagram.com/hey_aragon/)  
 
-<a href="https://www.linkedin.com/in/flavia-aragao-0721/"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/linkedin.png" width="16"></img></a> [LinkedIn](https://www.linkedin.com/in/flavia-aragao-0721/)  
+<a href="https://www.linkedin.com/in/flavia-aragao-0721/"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/linkedin.png" width="16"></img></a> [LinkedIn](https://www.linkedin.com/in/flavia-aragao/)  
 
 <a href="mailto:flaviaaragaolopes@gmail.com"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/email.png" width="16"></img></a> [Email](mailto:flaviaaragaolopes@gmail.com)  
 
