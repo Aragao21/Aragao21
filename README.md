@@ -34,7 +34,7 @@ Bootstrap | Asp .NET MVC e Core | Squads
 Layout Responsivo (mobile-first) | Programação Orientada a Objeto | Azure DevOps
 JavaScript | SQL Server | Trabalho em equipe
 TypeScript |   | ☕
-React Native | 
+React | 
 
 ---
 
