@@ -1,0 +1,12 @@
+{
+  "name": "flux",
+  "version": "1.0.0",
+  "description": "Flux - hub financeiro simulado com front-end React e back-end Express",
+  "private": true,
+  "scripts": {
+    "dev:server": "npm run dev --prefix server",
+    "start:server": "npm run start --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build:client": "npm run build --prefix client"
+  }
+}

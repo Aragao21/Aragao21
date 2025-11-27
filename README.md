@@ -1,50 +1,138 @@
-![capa github](https://github.com/Aragao21/Aragao21/blob/main/images/Capa%20-%20GitHub.png)  
+# Flux — Hub financeiro simulado
 
+Aplicação full-stack que simula um hub financeiro móvel com identidade visual inspirada na paleta da Claro, mas com a marca **Flux**. O projeto inclui:
 
-<center>
-  <table>
-    <tr>
-        <td><img width="400px" align="left" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Aragao21&hide=html&layout=compact&theme=buefy" /></td>
-        <td><img width="495px" align="left" src="https://github-readme-stats.vercel.app/api?username=Aragao21&theme=buefy"/></td>
-    </tr>   
-  </table>
-</center>  
+- **Front-end** em React + Vite com Tailwind CSS e Zustand.
+- **Back-end** em Node.js/Express com banco **SQLite**.
+- **API REST** cobrindo PIX (envio/recebimento), pagamento de contas, recarga de celular e extrato inteligente com categorização automática.
+- **Gráfico de gastos por categoria** usando Chart.js.
 
+## Estrutura de pastas
+```
+.
+├── client/               # Front-end React
+│   ├── src/components/   # UI reutilizável (header, cards, gráficos)
+│   ├── src/pages/        # Telas (Login, Home, PIX, Pagamentos, Recarga, Extrato)
+│   ├── src/services/     # Consumo da API REST
+│   └── src/store/        # Zustand store
+├── server/               # Back-end Express
+│   ├── src/routes/       # Rotas da API
+│   ├── src/db/           # Conexão e inicialização do SQLite
+│   └── src/utils/        # Regras de categorização
+└── data/                 # Arquivo do banco SQLite (criado em runtime)
+```
 
-### Olá! Boas vindas :) 
+## Como executar localmente
+1. Instale as dependências em `server` e `client`:
+   ```bash
+   npm install --prefix server
+   npm install --prefix client
+   ```
+2. Suba o back-end:
+   ```bash
+   npm run dev --prefix server
+   ```
+3. Em outro terminal, suba o front-end:
+   ```bash
+   npm run dev --prefix client
+   ```
+4. Acesse `http://localhost:5173` e use o login fake `fluxuser / 1234`.
 
----
+> Variável opcional: `VITE_API_URL` para apontar o front ao back-end (padrão `http://localhost:4000/api`).
 
-Sou Técnica de Informática para Internet, atuo na área desde 2021 (e desde 2017 estudando informática :scream:) e estou no quinto semestre da graduação em Engenharia da Computação.  
+## API REST
+| Recurso | Método | Rota | Descrição |
+| --- | --- | --- | --- |
+| Autenticação | POST | `/api/auth/login` | Login fake (fluxuser/1234) |
+| PIX | POST | `/api/pix/send` | Simula envio e grava extrato |
+| PIX | POST | `/api/pix/receive` | Simula recebimento e grava extrato |
+| Pagamentos | POST | `/api/payments` | Registra pagamento de boleto |
+| Recarga | POST | `/api/recharge` | Registra recarga de celular |
+| Extrato | GET | `/api/transactions` | Lista transações ordenadas |
+| Resumo | GET | `/api/transactions/summary` | Saldo + totais por categoria |
 
-Amo dançar :dancer:, cantar 🎵, ler :books: e jogar basquete 🏀!
+### Regras de categorização
+- PIX enviado → **Transferência**
+- PIX recebido → **Recebimento**
+- Recarga → **Telefone**
+- Pagamento → **Contas**
 
----
+## Banco de dados (SQLite)
+**Tabela `users`**
+- `id` (PK)
+- `username`, `password`, `name`
 
-Durante o ensino médio mantive o ensino integral enquanto fazia cursos de lingua estrangeira (Espanhol - Avançado), fui a lider da comissão esportiva e organizei a ida da mesma a um campeonato que arrecadava doações de comida em São Paulo, participei e ganhei medalhas em campeonatos de basquete além de, atualmente, ser embaixadora de turma.
+**Tabela `transactions`**
+- `id` (PK)
+- `type` (`pix_send`, `pix_receive`, `payment`, `recharge`)
+- `amount` (positivo/negativo)
+- `description`
+- `category` (mapeada pelas regras acima)
+- `metadata` (JSON com detalhes)
+- `created_at` (timestamp)
 
-Sempre tive paixão pela área de tecnologia e permaneci desde 2017 me aprimorando. Fiz cursos da área de design e, a partir disso, comecei a estudar front-end até adquirir familiaridade e tática. De 2021 à 2022, durante um ano e quatro meses, coloquei em prática meus conhecimentos em front-end e back-end atuando na área como desenvolvedora full stack, onde também tive familiaridade com Scrum, Azure DevOps e SQL Server (banco de dados relacional).
+## Telas
+- **Login**: valida usuário fake.
+- **Home**: saldo atual + atalhos para PIX, pagamentos e recarga.
+- **PIX**: simula envio/recebimento com comprovante falso.
+- **Pagamentos**: simulação de boleto/código de barras.
+- **Recarga**: recarga de qualquer valor.
+- **Extrato**: lista categorizada + gráfico de gastos por categoria.
 
-#### Atualmente, possuo conhecimento em:
+## Diagramas
+### Fluxo de alto nível (C4 / contexto simplificado)
+```mermaid
+graph TD
+  Browser[Front-end React] -->|HTTP/JSON| API[Express API]
+  API --> DB[(SQLite)]
+  subgraph Módulos
+    PIX
+    Pagamentos
+    Recargas
+    Extrato
+  end
+  API --> PIX
+  API --> Pagamentos
+  API --> Recargas
+  API --> Extrato
+```
 
-Front-End   | Back-End | Dinâmica de Trabalho
---------- | ------ | ------
-HTML5 & CSS3  | C# .NET | Scrum
-Bootstrap | Asp .NET MVC e Core | Squads
-Layout Responsivo (mobile-first) | Programação Orientada a Objeto | Azure DevOps
-JavaScript | SQL Server | Trabalho em equipe
-TypeScript |   | ☕
-React | 
+### Diagrama de sequência (envio de PIX)
+```mermaid
+sequenceDiagram
+  participant UI as UI React
+  participant API as Express
+  participant DB as SQLite
 
----
+  UI->>API: POST /api/pix/send (valor, destinatário)
+  API->>DB: INSERT transaction (type=pix_send, categoria=Transferência)
+  DB-->>API: OK
+  API-->>UI: Comprovante fake + status
+```
 
-Onde me encontrar? :mag:   
+### Modelo E-R simplificado
+```mermaid
+erDiagram
+  USERS ||--o{ TRANSACTIONS : realiza
+  USERS {
+    int id PK
+    string username
+    string password
+    string name
+  }
+  TRANSACTIONS {
+    int id PK
+    string type
+    float amount
+    string description
+    string category
+    string metadata
+    datetime created_at
+  }
+```
 
-<a href="https://www.instagram.com/hey_aragon/"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/instagram.png" width="16"></img></a> [Instagram](https://www.instagram.com/hey_aragon/)  
-
-<a href="https://www.linkedin.com/in/flavia-aragao-0721/"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/linkedin.png" width="16"></img></a> [LinkedIn](https://www.linkedin.com/in/flavia-aragao/)  
-
-<a href="mailto:flaviaaragaolopes@gmail.com"><img src="https://github.com/Aragao21/Aragao21/blob/main/images/email.png" width="16"></img></a> [Email](mailto:flaviaaragaolopes@gmail.com)  
-
----
-
+## Identidade visual
+- Primário: vermelho Claro `#ED1C24`
+- Base: branco; texto/em todo: preto e cinza
+- Botões arredondados, ícones simples, alto contraste e espaçamento confortável
+- Marca “Flux” destacada no cabeçalho
